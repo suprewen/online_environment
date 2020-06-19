@@ -18,14 +18,14 @@
 ## 基本依赖
 
 ```
-axios + ant-design-vue
-
-应该会加上个 echarts
+axios + ant-design-vue + vcharts
 ```
 
 [axios文档](https://www.kancloud.cn/yunye/axios/234845)
 
 [ant-design-vue 文档](https://www.antdv.com/docs/vue/introduce-cn/)
+
+[vcharts文档](https://v-charts.js.org/#/skill-demo)
 
 
 
