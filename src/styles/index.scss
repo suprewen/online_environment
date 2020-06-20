@@ -1,1 +1,5 @@
 @import './variables.scss';
+
+.ant-drawer-body { // 去除菜单内边距
+    padding: 0;
+  }

@@ -21,10 +21,27 @@
         </footer>
       </a-layout-footer>
 
-      <a-drawer placement="left" :closable="false" :maskClosable="true" :visible="drawerVisible"
+      <a-drawer title="网络环境分析" placement="left" :closable="false" :maskClosable="true" :visible="drawerVisible"
         @close="onClose">
         <div class="drawer-content">
-
+          <a-menu
+            style="flex-shrink: 0; width: 100%;"
+            :default-selected-keys="['1']"
+            mode="inline"
+          >
+            <a-menu-item key="1">
+              <a-icon type="home" />
+              <span>首页</span>
+            </a-menu-item>
+            <a-menu-item key="2">
+              <a-icon type="search" />
+              <span>搜索</span>
+            </a-menu-item>
+            <a-menu-item key="3">
+              <a-icon type="fire" />
+              <span>热搜</span>
+            </a-menu-item>
+          </a-menu>
           <p>powered by @oceanwise</p>
         </div>
       </a-drawer>
@@ -97,8 +114,14 @@ export default {
 
 .drawer-content {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+
+  p {
+    position: absolute;
+    bottom: 20px;
+  }
 }
 
 .has-shadow {
