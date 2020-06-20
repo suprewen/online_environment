@@ -1,7 +1,7 @@
-const hotWords = require('./hotWords')
+const words = require('./words')
 
 const mocks = [
-  ...hotWords
+  ...words
 ]
 
 module.exports = mocks

@@ -18,6 +18,7 @@ export default {
 <style lang="scss" scoped>
 .item-card {
   padding: 20px;
+  margin: 0 0 30px 0;
   background-color: rgb(250, 250, 250);
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12);
   transition: all 0.5s;

@@ -14,46 +14,87 @@
     <div class="content-container">
       <h2 class="title">近期热词</h2>
       <item-card>
-        <ve-line :data="chartData"></ve-line>
+        <ve-wordcloud :data="hotWords" :chartSettings="{sizeMin: 60, sizeMax: 120}" />
       </item-card>
+      <router-link to="/detail">查看详情
+        <a-icon type="arrow-right" />
+      </router-link>
+
+      <h2 class="title">敏感词</h2>
+      <item-card>
+        <ve-wordcloud :data="sensitivewords" :chartSettings="{sizeMin: 60, sizeMax: 120}" />
+      </item-card>
+      <router-link to="/detail">查看详情
+        <a-icon type="arrow-right" />
+      </router-link>
+
+      <h2 class="title">粗言秽语</h2>
+      <item-card>
+        <ve-wordcloud :data="foulwords" :chartSettings="{sizeMin: 60, sizeMax: 120}" />
+      </item-card>
+      <router-link to="/detail">查看详情
+        <a-icon type="arrow-right" />
+      </router-link>
     </div>
   </div>
 
 </template>
 
 <script>
-import { getRecentHotWords } from '@/api/index'
+import { getHotWords, getSensitiveWords, getFoulWords } from '@/api/index'
 
 import itemCard from '@/components/itemCard'
+import VeWordcloud from 'v-charts/lib/wordcloud.common'
 
 export default {
   name: 'index',
-  components: { itemCard },
+  components: { itemCard, VeWordcloud },
   data () {
     return {
-      chartData: {}
+      hotWords: {
+        columns: ['word', 'count'],
+        rows: []
+      },
+      sensitivewords: {
+        columns: ['word', 'count'],
+        rows: []
+      },
+      foulwords: {
+        columns: ['word', 'count'],
+        rows: []
+      },
+      initQuery: { days: 7, count: 1000, sort: true }
     }
   },
   methods: {
     onSearch (val) {
       console.log(val)
     },
+    initWords () {
+      this.getRecentHotWords()
+      this.getSensitiveWords()
+      this.getFoulWords()
+    },
     async getRecentHotWords () {
-      const { data } = await getRecentHotWords()
-      this.chartData = data
+      const { data } = await getHotWords(this.initQuery)
+      this.hotWords.rows = data.data
+    },
+    async getSensitiveWords () {
+      const { data } = await getSensitiveWords(this.initQuery)
+      this.sensitivewords.rows = data.data
+    },
+    async getFoulWords () {
+      const { data } = await getFoulWords(this.initQuery)
+      this.foulwords.rows = data.data
     }
   },
   created () {
-    this.getRecentHotWords()
+    this.initWords()
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.container {
-  // height: 1000px;
-}
-
 .search-container {
   display: flex;
   flex-direction: column;
@@ -79,6 +120,7 @@ export default {
   text-align: center;
 
   .title {
+    margin-top: 30px;
     text-align: left;
     font-size: 1.1rem;
     font-weight: bold;
