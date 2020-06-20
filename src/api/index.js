@@ -8,3 +8,10 @@ export function dosth (query) {
     params: query
   })
 }
+
+export function getRecentHotWords () {
+  return request({
+    url: '/getRecentHotWords',
+    method: 'get'
+  })
+}
