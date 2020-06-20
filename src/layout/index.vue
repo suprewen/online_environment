@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import { throttle } from '@/utils/common'
+import { throttle } from '@/utils'
 
 export default {
   name: 'layout',

@@ -10,7 +10,7 @@ export function throttle (fn, delay) {
   return function (...args) {
     let now = Date.now()
     let context = this
-    // console.log(now - prev)
+
     if (now - prev < delay) {
       clearTimeout(timer)
 
@@ -24,4 +24,24 @@ export function throttle (fn, delay) {
       fn.apply(context, args)
     }
   }
+}
+
+/**
+ * @param {string} url
+ * @returns {Object}
+ */
+export function param2Obj (url) {
+  const search = url.split('?')[1]
+  if (!search) {
+    return {}
+  }
+  return JSON.parse(
+    '{"' +
+    decodeURIComponent(search)
+      .replace(/"/g, '\\"')
+      .replace(/&/g, '","')
+      .replace(/=/g, '":"')
+      .replace(/\+/g, ' ') +
+    '"}'
+  )
 }

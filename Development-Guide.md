@@ -18,7 +18,7 @@
 ## 基本依赖
 
 ```
-axios + ant-design-vue + vcharts
+axios + ant-design-vue + vcharts + mockjs
 ```
 
 [axios文档](https://www.kancloud.cn/yunye/axios/234845)
@@ -45,3 +45,12 @@ import { getList } from '@/api/index'
 // axios 返回的是个 promise, 同理可以使用 async await
 getList().then(res => {}, err => {})
 ```
+
+## mock
+具体逻辑在 `mock/mock-server.js` 中，其中主要是使用 `chokidar` 处理了 `mockjs` 的热更新
+
+### 增加 mock 接口
+如 `hotWords.js` 中，在暴露出的数组中添加新的即可
+
+### 增加 mock 模块
+新增 `[moduleName].js` 文件，在 `mock/index.js` 中导入即可
