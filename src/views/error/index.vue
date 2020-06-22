@@ -1,15 +1,13 @@
 <template>
   <div>
-
+    <h1>404 NotFound</h1>
+    <router-link to="/">首页</router-link>
   </div>
 </template>
 
 <script>
-import VeWordcloud from 'v-charts/lib/wordcloud.common'
-
 export default {
-  name: 'wordCloud',
-  components: { VeWordcloud },
+  name: 'error',
   data () {
     return {
 

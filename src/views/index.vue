@@ -16,23 +16,23 @@
       <item-card>
         <ve-wordcloud :data="hotWords" :chartSettings="{sizeMin: 60, sizeMax: 120}" />
       </item-card>
-      <router-link to="/detail">查看详情
+      <router-link to="/detail?target=hotWords">查看详情
         <a-icon type="arrow-right" />
       </router-link>
 
       <h2 class="title">敏感词</h2>
       <item-card>
-        <ve-wordcloud :data="sensitivewords" :chartSettings="{sizeMin: 60, sizeMax: 120}" />
+        <ve-wordcloud :data="sensitiveWords" :chartSettings="{sizeMin: 60, sizeMax: 120}" />
       </item-card>
-      <router-link to="/detail">查看详情
+      <router-link to="/detail?target=sensitiveWords">查看详情
         <a-icon type="arrow-right" />
       </router-link>
 
       <h2 class="title">粗言秽语</h2>
       <item-card>
-        <ve-wordcloud :data="foulwords" :chartSettings="{sizeMin: 60, sizeMax: 120}" />
+        <ve-wordcloud :data="foulWords" :chartSettings="{sizeMin: 60, sizeMax: 120}" />
       </item-card>
-      <router-link to="/detail">查看详情
+      <router-link to="/detail?target=foulWords">查看详情
         <a-icon type="arrow-right" />
       </router-link>
     </div>
@@ -41,25 +41,22 @@
 </template>
 
 <script>
-import { getHotWords, getSensitiveWords, getFoulWords } from '@/api/index'
-
 import itemCard from '@/components/itemCard'
-import VeWordcloud from 'v-charts/lib/wordcloud.common'
 
 export default {
   name: 'index',
-  components: { itemCard, VeWordcloud },
+  components: { itemCard, /* VeWordcloud */ },
   data () {
     return {
       hotWords: {
         columns: ['word', 'count'],
         rows: []
       },
-      sensitivewords: {
+      sensitiveWords: {
         columns: ['word', 'count'],
         rows: []
       },
-      foulwords: {
+      foulWords: {
         columns: ['word', 'count'],
         rows: []
       },
@@ -76,16 +73,16 @@ export default {
       this.getFoulWords()
     },
     async getRecentHotWords () {
-      const { data } = await getHotWords(this.initQuery)
-      this.hotWords.rows = data.data
+      const { data } = await this.$store.dispatch('getHotWords', this.initQuery)
+      this.hotWords.rows = data
     },
     async getSensitiveWords () {
-      const { data } = await getSensitiveWords(this.initQuery)
-      this.sensitivewords.rows = data.data
+      const { data } = await this.$store.dispatch('getSensitiveWords', this.initQuery)
+      this.sensitiveWords.rows = data
     },
     async getFoulWords () {
-      const { data } = await getFoulWords(this.initQuery)
-      this.foulwords.rows = data.data
+      const { data } = await this.$store.dispatch('getFoulWords', this.initQuery)
+      this.foulWords.rows = data
     }
   },
   created () {

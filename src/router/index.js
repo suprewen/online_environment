@@ -13,14 +13,19 @@ const routes = [
     children: [
       {
         path: 'index',
-        component: () => import('@/views/index'),
-        name: 'index'
+        name: 'index',
+        component: () => import('@/views/index')
+      },
+      {
+        path: 'detail',
+        name: 'detail',
+        component: () => import('@/views/detail')
       }
     ]
   },
   {
-    path: '/search',
-    component: () => import('@/views/search')
+    path: '/error',
+    component: () => import('@/views/error')
   }
 ]
 

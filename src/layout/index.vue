@@ -5,7 +5,7 @@
       <a-layout-header class="app-header">
         <header :class="{'fixed-header': true, 'has-shadow': hasShadow}">
           <a-icon type="bars" class="menu-icon" @click="showDrawer" />
-          <span>网络环境分析</span>
+          <router-link to="/" tag="span">网络环境分析</router-link>
         </header>
       </a-layout-header>
 
@@ -21,14 +21,10 @@
         </footer>
       </a-layout-footer>
 
-      <a-drawer title="网络环境分析" placement="left" :closable="false" :maskClosable="true" :visible="drawerVisible"
-        @close="onClose">
+      <a-drawer title="网络环境分析" placement="left" :closable="false" :maskClosable="true"
+        :visible="drawerVisible" @close="onClose">
         <div class="drawer-content">
-          <a-menu
-            style="flex-shrink: 0; width: 100%;"
-            :default-selected-keys="['1']"
-            mode="inline"
-          >
+          <a-menu style="flex-shrink: 0; width: 100%;" :default-selected-keys="['1']" mode="inline">
             <a-menu-item key="1">
               <a-icon type="home" />
               <span>首页</span>
@@ -108,6 +104,10 @@ export default {
       cursor: pointer;
       vertical-align: middle;
       line-height: 0;
+    }
+
+    span {
+      cursor: pointer;
     }
   }
 }
