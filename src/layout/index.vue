@@ -21,7 +21,7 @@
         </footer>
       </a-layout-footer>
 
-      <a-drawer title="网络环境分析" placement="left" :closable="false" :maskClosable="true"
+      <!-- <a-drawer title="网络环境分析" placement="left" :closable="false" :maskClosable="true"
         :visible="drawerVisible" @close="onClose">
         <div class="drawer-content">
           <a-menu style="flex-shrink: 0; width: 100%;" :default-selected-keys="['1']" mode="inline">
@@ -40,17 +40,20 @@
           </a-menu>
           <p>powered by @oceanwise</p>
         </div>
-      </a-drawer>
+      </a-drawer> -->
 
+      <drawer-menu :visible.sync="drawerVisible"></drawer-menu>
     </a-layout>
   </section>
 </template>
 
 <script>
 import { throttle } from '@/utils'
+import DrawerMenu from './components/DrawerMenu'
 
 export default {
   name: 'layout',
+  components: { DrawerMenu },
   data () {
     return {
       hasShadow: false,
