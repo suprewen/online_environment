@@ -3,11 +3,11 @@
     :visible.sync="drawerVisible" @close="onClose">
     <div class="drawer-content">
       <a-menu style="flex-shrink: 0; width: 100%;" :default-selected-keys="['1']" mode="inline">
-        <a-menu-item key="1">
+        <a-menu-item key="1" @click="switchPage('index')">
           <a-icon type="home" />
           <span>首页</span>
         </a-menu-item>
-        <a-menu-item key="2">
+        <a-menu-item key="2" @click="switchPage('search')">
           <a-icon type="search" />
           <span>搜索</span>
         </a-menu-item>
@@ -50,10 +50,25 @@ export default {
   methods: {
     onClose () {
       this.drawerVisible = false
+    },
+    switchPage(name) {
+      this.$router.push({ name })
+      this.drawerVisible = false
     }
   }
 }
 </script>
 
-<style lang="" scoped>
+<style lang="scss" scoped>
+.drawer-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+
+  p {
+    position: absolute;
+    bottom: 20px;
+  }
+}
 </style>

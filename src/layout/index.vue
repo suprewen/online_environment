@@ -115,18 +115,6 @@ export default {
   }
 }
 
-.drawer-content {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-
-  p {
-    position: absolute;
-    bottom: 20px;
-  }
-}
-
 .has-shadow {
   box-shadow: rgba(0, 0, 0, 0.28) 0px 4px 8px;
 }

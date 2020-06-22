@@ -95,6 +95,7 @@ export default {
         }
         &:focus {
           background-color: #f0f2f5;
+          outline: none;
         }
       }
     }
