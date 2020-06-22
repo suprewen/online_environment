@@ -11,7 +11,7 @@ import './styles/index.scss'
 /**
  * ant-design-vue
  */
-import { Col, Row, Button, Layout, Input, Icon, Drawer, Menu } from 'ant-design-vue'
+import { Col, Row, Button, Layout, Input, Icon, Drawer, Menu, Cascader } from 'ant-design-vue'
 Vue.use(Col)
 Vue.use(Row)
 Vue.use(Button)
@@ -20,6 +20,7 @@ Vue.use(Input)
 Vue.use(Icon)
 Vue.use(Drawer)
 Vue.use(Menu)
+Vue.use(Cascader)
 
 /**
  * vcharts
