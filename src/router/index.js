@@ -15,12 +15,13 @@ const routes = [
         path: 'index',
         component: () => import('@/views/index'),
         name: 'index'
+      },
+      {
+        path: '/search',
+        component: () => import('@/views/search'),
+        name: 'search'
       }
     ]
-  },
-  {
-    path: '/search',
-    component: () => import('@/views/search')
   }
 ]
 

@@ -2,4 +2,16 @@
 
 .ant-drawer-body { // 去除菜单内边距
     padding: 0;
-  }
+}
+
+.ant-cascader-picker {
+  position: absolute;
+  width: 110px;
+  right: 250px;
+  top: 8px;
+}
+
+.ant-cascader-input {
+  font-size: 12px;
+  height: 40px;
+}
