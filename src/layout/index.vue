@@ -2,6 +2,7 @@
   <section class="app-container">
     <a-layout theme="light">
 
+      <!-- 头部 -->
       <a-layout-header class="app-header">
         <header :class="{'fixed-header': true, 'has-shadow': hasShadow}">
           <a-icon type="bars" class="menu-icon" @click="showDrawer" />
@@ -9,40 +10,23 @@
         </header>
       </a-layout-header>
 
+      <!-- 主体 -->
       <a-layout-content class="app-content">
         <transition name="fade-transfrom" mode="out-in">
           <router-view></router-view>
         </transition>
       </a-layout-content>
 
+      <!-- 底部 -->
       <a-layout-footer>
         <footer class="app-footer">
           powered by @oceanwise
         </footer>
       </a-layout-footer>
 
-      <!-- <a-drawer title="网络环境分析" placement="left" :closable="false" :maskClosable="true"
-        :visible="drawerVisible" @close="onClose">
-        <div class="drawer-content">
-          <a-menu style="flex-shrink: 0; width: 100%;" :default-selected-keys="['1']" mode="inline">
-            <a-menu-item key="1">
-              <a-icon type="home" />
-              <span>首页</span>
-            </a-menu-item>
-            <a-menu-item key="2">
-              <a-icon type="search" />
-              <span>搜索</span>
-            </a-menu-item>
-            <a-menu-item key="3">
-              <a-icon type="fire" />
-              <span>热搜</span>
-            </a-menu-item>
-          </a-menu>
-          <p>powered by @oceanwise</p>
-        </div>
-      </a-drawer> -->
-
+      <!-- 抽屉菜单 -->
       <drawer-menu :visible.sync="drawerVisible"></drawer-menu>
+
     </a-layout>
   </section>
 </template>
@@ -56,11 +40,12 @@ export default {
   components: { DrawerMenu },
   data () {
     return {
-      hasShadow: false,
-      drawerVisible: false
+      hasShadow: false, // 固定头部的阴影显示
+      drawerVisible: false // 抽屉的显示
     }
   },
   methods: {
+    // 监听滚动并节流
     handleScroll: throttle(function () {
       if (!this.hasShadow && document.documentElement.scrollTop > 10) {
         this.hasShadow = true
@@ -70,9 +55,6 @@ export default {
     }, 100),
     showDrawer () {
       this.drawerVisible = true
-    },
-    onClose () {
-      this.drawerVisible = false
     }
   },
   created () {

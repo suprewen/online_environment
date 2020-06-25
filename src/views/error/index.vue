@@ -6,6 +6,9 @@
 </template>
 
 <script>
+/**
+ * TODO 完成 404 页面
+ */
 export default {
   name: 'error',
   data () {
