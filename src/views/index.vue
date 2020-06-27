@@ -45,7 +45,7 @@ import itemCard from '@/components/itemCard'
 
 export default {
   name: 'index',
-  components: { itemCard, /* VeWordcloud */ },
+  components: { itemCard },
   data () {
     return {
       hotWords: {
