@@ -24,6 +24,7 @@ import { mapState } from 'vuex'
 
 import itemCard from '@/components/itemCard'
 
+// 标题映射表
 const wordTypeMap = {
   hotWords: '热词',
   sensitiveWords: '敏感词',
@@ -37,30 +38,34 @@ export default {
   },
   data () {
     return {
+      // 词云图数据
       wordCloudData: {
         columns: ['word', 'count'],
         rows: []
       },
+      // 折线图数据
       wordLineData: {
         columns: ['word', 'count'],
-        rows: [
-
-        ]
+        rows: []
       }
     }
   },
   computed: {
+    // store 中的 words 的数据
     ...mapState({
-      hotWords: state => state.hotWords,
-      sensitiveWords: state => state.sensitiveWords,
-      foulWords: state => state.foulWords
+      hotWords: state => state.words.hotWords,
+      sensitiveWords: state => state.words.sensitiveWords,
+      foulWords: state => state.words.foulWords
     }),
+    // 标题
     title () {
       return wordTypeMap[this.wordType]
     },
+    // 词类，通过路由传的参数判断
     wordType () {
       return this.$route.query.target
     },
+    // 要 dispatch 的 action
     actionType () {
       let wordtype = this.wordType
       wordtype = wordtype.replace(/([a-z])/, function (a, k) {
@@ -71,6 +76,11 @@ export default {
   },
   methods: {
     async getRecentHotWords () {
+      /**
+       * 判断 store 中有没有数据，（例在详情页刷新时 store 会清空）
+       * 有就直接拿
+       * 没有就重新获取
+       */
       let data = this[this.wordType].length
         ? this[this.wordType]
         : (await this.$store.dispatch(this.actionType)).data
@@ -83,6 +93,7 @@ export default {
     this.getRecentHotWords()
   },
   beforeRouteEnter (to, form, next) {
+    // 路由进来前判断输入的参数是否是存在的
     if (wordTypeMap[to.query.target]) next()
     else next('/error')
   }
@@ -90,6 +101,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/* TODO 抽离 style */
 .search-container {
   display: flex;
   flex-direction: column;
@@ -111,9 +123,6 @@ export default {
 }
 
 .detail-container {
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
   margin: 30px 20vw;
 
   .title {

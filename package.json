@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "serve:stage": "vue-cli-service build --mode staging"
+    "serve:stage": "vue-cli-service serve --mode staging"
   },
   "dependencies": {
     "ant-design-vue": "^1.6.2",
