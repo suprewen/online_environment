@@ -65,7 +65,7 @@ export default {
   },
   methods: {
     onSearch (val) {
-      console.log(val)
+      this.$router.push({ name: 'search', query: { word: val } })
     },
     initWords () {
       this.getRecentHotWords()

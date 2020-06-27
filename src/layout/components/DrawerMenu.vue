@@ -52,8 +52,8 @@ export default {
       this.drawerVisible = false
     },
     switchPage(name) {
-      this.$router.push({ name })
-      this.drawerVisible = false
+      this.$router.push({ name }) // 跳转页面
+      this.drawerVisible = false // 收起drawer
     }
   }
 }

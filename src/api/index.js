@@ -47,3 +47,16 @@ export function getFoulWords (query) {
     params: query
   })
 }
+
+/**
+ * 获取搜索词趋势
+ * @param {object} query
+ * @return {Promise}
+ */
+export function getSearchWord (query) {
+  return request({
+    url: '/trend/search',
+    method: 'get',
+    params: query
+  })
+}
