@@ -16,8 +16,8 @@ service.interceptors.request.use(config => config, error => {
 service.interceptors.response.use(response => {
   const res = response.data
 
-  // TODO 与后端协商，出错的 code
-  if (res.code !== 200) {
+  // TODO 与后端协商，出错的 status
+  if (res.status !== 200) {
     message.warning('oops! something went wrong!')
     return Promise.reject(new Error(res.message || 'Error'))
   }

@@ -32,8 +32,6 @@ Vue.component('ve-line', VeLine)
 
 Vue.config.productionTip = false
 
-console.log(process.env.NODE_ENV)
-
 new Vue({
   router,
   store,
