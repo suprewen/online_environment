@@ -7,22 +7,34 @@
     <div class="detail-container">
       <p class="title">{{title}}详情</p>
       <item-card>
-        <ve-wordcloud :data="wordCloudData"></ve-wordcloud>
+        <ve-wordcloud :data="wordCloudData">
+          <data-empty v-show="wordCloudData.rows.length === 0"></data-empty>
+        </ve-wordcloud>
       </item-card>
 
       <p class="title">近期{{title}}趋势</p>
-      <item-card>
-        <ve-line :data="wordLineData"></ve-line>
+      <item-card v-if="wordType === 'hotWords'">
+        <ve-line :data="hotWordTrendData">
+          <data-empty v-show="hotWordTrendData.rows.length === 0"></data-empty>
+        </ve-line>
       </item-card>
+
+      <item-card>
+        <ve-line :data="wordLineData">
+          <data-empty v-show="wordLineData.rows.length === 0"></data-empty>
+        </ve-line>
+      </item-card>
+
     </div>
   </div>
 
 </template>
 
 <script>
+import { getHotWordTrend } from '@/api/index'
 import { mapState } from 'vuex'
-
 import itemCard from '@/components/itemCard'
+import dataEmpty from '@/components/charts/dataEmpty'
 
 // 标题映射表
 const wordTypeMap = {
@@ -34,7 +46,8 @@ const wordTypeMap = {
 export default {
   name: 'detail',
   components: {
-    itemCard
+    itemCard,
+    dataEmpty
   },
   data () {
     return {
@@ -47,7 +60,14 @@ export default {
       wordLineData: {
         columns: ['word', 'count'],
         rows: []
-      }
+      },
+      // 热词趋势数据
+      hotWordTrendData: {
+        columns: ['日期'],
+        rows: []
+      },
+      // 查询参数
+      initQuery: { days: 7, count: 1000, sort: true }
     }
   },
   computed: {
@@ -75,7 +95,7 @@ export default {
     }
   },
   methods: {
-    async getRecentHotWords () {
+    async getWordData () {
       /**
        * 判断 store 中有没有数据，（例在详情页刷新时 store 会清空）
        * 有就直接拿
@@ -83,14 +103,54 @@ export default {
        */
       let data = this[this.wordType].length
         ? this[this.wordType]
-        : (await this.$store.dispatch(this.actionType)).data
+        : (await this.$store.dispatch(this.actionType, this.initQuery))
 
       this.wordCloudData.rows = data
       this.wordLineData.rows = data
-    }
+    },
+    async getHotWordTrend () {
+      let { data } = await getHotWordTrend()
+      let hotWordTrendData = {
+        columns: ['日期'],
+        rows: []
+      }
+      console.log(data)
+
+      function res2TrendData () {
+        if (data.length === 0) return
+        let columns = hotWordTrendData.columns
+        let rows = hotWordTrendData.rows
+
+        // 初始化 rows数组 中每个元素的日期
+        for (let k of data[0]) {
+          rows.unshift({
+            '日期': k.date
+          })
+        }
+
+        for (let arr of data) {
+          // 初始化 columns 中的单词
+          columns.push(arr[0].word)
+
+          for (let obj of arr) {
+            // 往 rows 中对应的日期填入单词
+            for (let row of rows) {
+              if (obj.date === row['日期']) {
+                row[obj.word] = obj.count * 564 || 1000
+              }
+            }
+          }
+        }
+
+      }
+
+      res2TrendData()
+      this.hotWordTrendData = hotWordTrendData
+    },
   },
   created () {
-    this.getRecentHotWords()
+    this.getWordData()
+    if (this.wordType === 'hotWords') this.getHotWordTrend()
   },
   beforeRouteEnter (to, form, next) {
     // 路由进来前判断输入的参数是否是存在的

@@ -14,7 +14,9 @@
     <div class="content-container">
       <h2 class="title">近期热词</h2>
       <item-card>
-        <ve-wordcloud :data="hotWords" :chartSettings="{sizeMin: 60, sizeMax: 120}" />
+        <ve-wordcloud :data="hotWordData" :chartSettings="{sizeMin: 60, sizeMax: 120}">
+          <data-empty v-show="hotWords.length === 0"></data-empty>
+        </ve-wordcloud>
       </item-card>
       <router-link to="/detail?target=hotWords">查看详情
         <a-icon type="arrow-right" />
@@ -22,7 +24,9 @@
 
       <h2 class="title">敏感词</h2>
       <item-card>
-        <ve-wordcloud :data="sensitiveWords" :chartSettings="{sizeMin: 60, sizeMax: 120}" />
+        <ve-wordcloud :data="sensitiveWordData" :chartSettings="{sizeMin: 60, sizeMax: 120}">
+          <data-empty v-show="sensitiveWords.length === 0"></data-empty>
+        </ve-wordcloud>
       </item-card>
       <router-link to="/detail?target=sensitiveWords">查看详情
         <a-icon type="arrow-right" />
@@ -30,7 +34,9 @@
 
       <h2 class="title">粗言秽语</h2>
       <item-card>
-        <ve-wordcloud :data="foulWords" :chartSettings="{sizeMin: 60, sizeMax: 120}" />
+        <ve-wordcloud :data="foulWordData" :chartSettings="{sizeMin: 60, sizeMax: 120}">
+          <data-empty v-show="foulWords.length === 0"></data-empty>
+        </ve-wordcloud>
       </item-card>
       <router-link to="/detail?target=foulWords">查看详情
         <a-icon type="arrow-right" />
@@ -41,26 +47,42 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import itemCard from '@/components/itemCard'
+import dataEmpty from '@/components/charts/dataEmpty'
 
 export default {
   name: 'index',
-  components: { itemCard },
+  components: { itemCard, dataEmpty },
   data () {
     return {
-      hotWords: {
-        columns: ['word', 'count'],
-        rows: []
-      },
-      sensitiveWords: {
-        columns: ['word', 'count'],
-        rows: []
-      },
-      foulWords: {
-        columns: ['word', 'count'],
-        rows: []
-      },
       initQuery: { days: 7, count: 1000, sort: true }
+    }
+  },
+  computed: {
+    // store 中的 words 的数据
+    ...mapState({
+      hotWords: state => state.words.hotWords,
+      sensitiveWords: state => state.words.sensitiveWords,
+      foulWords: state => state.words.foulWords
+    }),
+    hotWordData () {
+      return {
+        columns: ['word', 'count'],
+        rows: this.hotWords
+      }
+    },
+    sensitiveWordData () {
+      return {
+        columns: ['word', 'count'],
+        rows: this.sensitiveWords
+      }
+    },
+    foulWordData () {
+      return {
+        columns: ['word', 'count'],
+        rows: this.foulWords
+      }
     }
   },
   methods: {

@@ -1,7 +1,7 @@
 import request from '@/utils/request'
 
 // TODO 填接口
-export function dosth (query) {
+export function dosth (query = {}) {
   return request({
     url: '',
     method: 'get',
@@ -14,7 +14,7 @@ export function dosth (query) {
  * @param {object} query
  * @return {Promise}
  */
-export function getHotWords (query) {
+export function getHotWords (query = {}) {
   return request({
     url: '/analysis/hotwords',
     method: 'get',
@@ -27,9 +27,9 @@ export function getHotWords (query) {
  * @param {object} query
  * @return {Promise}
  */
-export function getSensitiveWords (query) {
+export function getSensitiveWords (query = {}) {
   return request({
-    url: '/analysis/sensitiveWords',
+    url: '/analysis/sensitivewords',
     method: 'get',
     params: query
   })
@@ -40,9 +40,9 @@ export function getSensitiveWords (query) {
  * @param {object} query
  * @return {Promise}
  */
-export function getFoulWords (query) {
+export function getFoulWords (query = {}) {
   return request({
-    url: '/analysis/foulWords',
+    url: '/analysis/foulwords',
     method: 'get',
     params: query
   })
@@ -53,9 +53,23 @@ export function getFoulWords (query) {
  * @param {object} query
  * @return {Promise}
  */
-export function getSearchWord (query) {
+export function getSearchWord (query = {}) {
   return request({
     url: '/trend/search',
+    method: 'get',
+    params: query
+  })
+}
+
+/**
+ * 获取热词（10个）趋势
+ * @param {object}
+ * @return {Promise}
+ */
+export const getHotWordTrend = function (query = {}) {
+
+  return request({
+    url: '/trend/today',
     method: 'get',
     params: query
   })

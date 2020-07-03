@@ -28,8 +28,14 @@ export default {
 
         getHotWords(query).then(res => {
           const { data } = res
-          commit('setHotWords', data.data)
-          resolve(data)
+
+          if (data.length) {
+            let wordData = res2WordData(data[0].map)
+            commit('setHotWords', wordData)
+            resolve(wordData)
+          } else {
+            resolve(data)
+          }
         }).catch(e => reject(e))
 
       })
@@ -39,8 +45,15 @@ export default {
 
         getSensitiveWords(query).then(res => {
           const { data } = res
-          commit('setSensitiveWords', data.data)
-          resolve(data)
+
+          if (data.length) {
+            let wordData = res2WordData(data[0].map)
+            commit('setSensitiveWords', wordData)
+            resolve(wordData)
+          } else {
+            resolve(data)
+          }
+
         }).catch(e => reject(e))
 
       })
@@ -50,11 +63,35 @@ export default {
 
         getFoulWords(query).then(res => {
           const { data } = res
-          commit('setFoulWords', data.data)
-          resolve(data)
+
+          if (data.length) {
+            let wordData = res2WordData(data[0].map)
+            commit('setFoulWords', wordData)
+            resolve(wordData)
+          } else {
+            resolve(data)
+          }
+
         }).catch(e => reject(e))
 
       })
     },
   }
+}
+
+/**
+ * @param {object} map 词语与其数量的映射
+ * @return {object[]}
+ */
+const res2WordData = function (map) {
+  let wordData = []
+
+  Object.keys(map).forEach(item => {
+    wordData.push({
+      word: item,
+      count: map[item]
+    })
+  })
+
+  return wordData
 }

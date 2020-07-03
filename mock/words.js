@@ -10,7 +10,7 @@ module.exports = [
       const { days, count, sort } = config.query
 
       return {
-        code: 200,
+        status: 200,
         data: {
           data: wordsCN,
           msg: sort,
@@ -20,13 +20,13 @@ module.exports = [
     }
   },
   {
-    url: '/analysis/sensitiveWords',
+    url: '/analysis/sensitivewords',
     type: 'get',
     response: config => {
       const { days, count, sort } = config.query
 
       return {
-        code: 200,
+        status: 200,
         data: {
           data: wordsEN,
           msg: sort,
@@ -36,13 +36,13 @@ module.exports = [
     }
   },
   {
-    url: '/analysis/foulWords',
+    url: '/analysis/foulwords',
     type: 'get',
     response: config => {
       const { days, count, sort } = config.query
 
       return {
-        code: 200,
+        status: 200,
         data: {
           data: wordsEN,
           msg: sort,

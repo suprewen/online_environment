@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>404 NotFound</h1>
-    <router-link to="/">首页</router-link>
+    <router-link class="link" to="/">首页</router-link>
   </div>
 </template>
 
@@ -19,5 +19,15 @@ export default {
 }
 </script>
 
-<style lang="" scoped>
+<style lang="scss" scoped>
+h1 {
+  text-align: center;
+  margin-top: 200px;
+}
+.link {
+  display: block;
+  font-size: 18px;
+  text-align: center;
+  cursor: pointer;
+}
 </style>

@@ -8,7 +8,7 @@ const service = axios.create({
 
 // 请求拦截器
 service.interceptors.request.use(config => config, error => {
-  console.log(error)
+  console.error(error)
   return Promise.reject(error)
 })
 
